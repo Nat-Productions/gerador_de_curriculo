@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gerador de Currículo</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+</head>
+<body>
+    <header>
+        <h1>Gerador de Currículo</h1>
+        <p>Preencha suas informações abaixo para gerar um currículo otimizado para processos seletivos</p>
+    </header>
+    <div class="container">
+        <section class="form-section">
+            <div class="tabs">
+                <div class="tab active" data-tab="personal">Dados Pessoais</div>
+                <div class="tab" data-tab="education">Formação</div>
+                <div class="tab" data-tab="skills">Habilidades</div>
+                <div class="tab" data-tab="language">Idiomas</div>
+                <div class="tab" data-tab="courses">Cursos</div>
+                <div class="tab" data-tab="projects">Projetos</div>
+            </div>
+            
+            <form id="resume-form">
+                <div class="tab-content active" id="personal-tab">
+                    <h2>Informações Pessoais</h2>
+                    
+                    <div class="form-group">
+                        <label for="name">Nome Completo</label>
+                        <input type="text" id="name" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="phone">Telefone/Celular</label>
+                        <input type="text" id="phone" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="email">E-mail</label>
+                        <input type="email" id="email" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="location">Localização</label>
+                        <input type="text" id="location" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="github">GitHub</label>
+                        <input type="url" id="github">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="linkedin">LinkedIn</label>
+                        <input type="url" id="linkedin">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="objective">Objetivo Profissional</label>
+                        <textarea id="objective" required></textarea>
+                    </div>
+                </div>
+                
+                <div class="tab-content" id="education-tab">
+                    <h2>Formação Acadêmica</h2>
+                    <div id="education-container">
+                        <div class="multi-item">
+                            <div class="form-group">
+                                <label>Curso</label>
+                                <input type="text" class="education-course" required>
+                            </div>
+                            <div class="form-group">
+                                <label>Instituição</label>
+                                <input type="text" class="education-institution" required>
+                            </div>
+                            <div class="form-group">
+                                <label>Período</label>
+                                <input type="text" class="education-period" placeholder="Ex: 2023 - Presente" required>
+                            </div>
+                            <button type="button" class="remove-btn">Remover</button>
+                        </div>
+                    </div>
+                    <button type="button" class="add-btn" id="add-education">+ Adicionar Formação</button>
+                </div>
+                
+                <div class="tab-content" id="skills-tab">
+                    <h2>Habilidades</h2>
+                    
+                    <div class="form-group">
+                        <label for="languages">Linguagens de Programação</label>
+                        <textarea id="languages" placeholder="Ex: Python, JavaScript, HTML/CSS"></textarea>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="tools">Ferramentas</label>
+                        <textarea id="tools" placeholder="Ex: Git, Github, Power BI, AWS"></textarea>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="knowledge">Conhecimentos</label>
+                        <textarea id="knowledge" placeholder="Ex: Versionamento de código, Lógica de Programação"></textarea>
+                    </div>
+                </div>
+
+                <div class="tab-content" id="language-tab">
+                    <h2>Idiomas</h2>
+                    <div id="language-container">
+                        <div class="multi-item">
+                            <div class="form-group">
+                                <label>Idioma</label>
+                                <select class="language-name" required>
+                                    <option value="" disabled selected>Selecione um idioma</option>
+                                    <option value="Alemão">Alemão</option>
+                                    <option value="Árabe">Árabe</option>
+                                    <option value="Chinês (Mandarim)">Chinês (Mandarim)</option>
+                                    <option value="Coreano">Coreano</option>
+                                    <option value="Espanhol">Espanhol</option>
+                                    <option value="Francês">Francês</option>
+                                    <option value="Hebraico">Hebraico</option>
+                                    <option value="Hindi">Hindi</option>
+                                    <option value="Holandês">Holandês</option>
+                                    <option value="Inglês">Inglês</option>
+                                    <option value="Italiano">Italiano</option>
+                                    <option value="Japonês">Japonês</option>
+                                    <option value="LIBRAS (Língua Brasileira de Sinais)">LIBRAS (Língua Brasileira de Sinais)</option>
+                                    <option value="ASL (Língua de Sinais Americana)">ASL (Língua de Sinais Americana)</option>
+                                    <option value="Português">Português</option>
+                                    <option value="Russo">Russo</option>
+                                    <option value="Sueco">Sueco</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>Proficiência</label>
+                                <select class="language-proficiency" required>
+                                    <option value="Básico">Básico</option>
+                                    <option value="Intermediário">Intermediário</option>
+                                    <option value="Avançado">Avançado</option>
+                                    <option value="Fluente">Fluente</option>
+                                    <option value="Nativo">Nativo</option>
+                                </select>
+                            </div>
+                            <button type="button" class="remove-btn">Remover</button>
+                        </div>
+                    </div>
+                    <button type="button" class="add-btn" id="add-language">+ Adicionar Idioma</button>
+                </div>
+
+                <div class="tab-content" id="courses-tab">
+                    <h2>Cursos Livres</h2>
+                    <div id="courses-container">
+                        <div class="multi-item">
+                            <div class="form-group">
+                                <label>Nome do Curso</label>
+                                <input type="text" class="course-name" required>
+                            </div>
+                            <div class="form-group">
+                                <label>Instituição</label>
+                                <input type="text" class="course-institution" required>
+                            </div>
+                            <div class="form-group">
+                                <label>Período/Carga Horária</label>
+                                <input type="text" class="course-period" placeholder="Ex: 2025 - 12h" required>
+                            </div>
+                            <div class="form-group">
+                                <label>Descrição (opcional)</label>
+                                <textarea class="course-description"></textarea>
+                            </div>
+                            <button type="button" class="remove-btn">Remover</button>
+                        </div>
+                    </div>
+                    <button type="button" class="add-btn" id="add-course">+ Adicionar Curso</button>
+                </div>
+                
+                <div class="tab-content" id="projects-tab">
+                    <h2>Projetos</h2>
+                    <div id="projects-container">
+                        <div class="multi-item">
+                            <div class="form-group">
+                                <label>Nome do Projeto</label>
+                                <input type="text" class="project-name" required>
+                            </div>
+                            <div class="form-group">
+                                <label>Descrição</label>
+                                <textarea class="project-description" required></textarea>
+                            </div>
+                            <div class="form-group">
+                                <label>Link (opcional)</label>
+                                <input type="url" class="project-link">
+                            </div>
+                            <button type="button" class="remove-btn">Remover</button>
+                        </div>
+                    </div>
+                    <button type="button" class="add-btn" id="add-project">+ Adicionar Projeto</button>
+                </div>
+                
+                <button type="button" id="generate-preview">Visualizar Currículo</button>
+            </form>
+        </section>
+        
+        <section class="preview-section">
+            <h2>Pré-visualização do Currículo</h2>
+            <div id="resume-preview" class="resume">
+                <p>Preencha o formulário ao lado para gerar seu currículo.</p>
+            </div>
+            <button id="download-pdf" class="download-btn hidden">Download PDF</button>
+        </section>
+    </div>
+
+    <script src="script.js" defer></script>
+    <script src="download.js" defer></script>
+</body>
+</html>
