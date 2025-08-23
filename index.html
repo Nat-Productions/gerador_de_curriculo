@@ -3,212 +3,267 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gerador de Currículo</title>
+    <title>Gerador de Currículo Profissional</title>
     <link rel="stylesheet" href="style.css">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+    <script src="script.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.28/jspdf.plugin.autotable.min.js"></script>
 </head>
 <body>
-    <header>
-        <h1>Gerador de Currículo</h1>
-        <p>Preencha suas informações abaixo para gerar um currículo otimizado para processos seletivos</p>
-    </header>
     <div class="container">
-        <section class="form-section">
-            <div class="tabs">
-                <div class="tab active" data-tab="personal">Dados Pessoais</div>
-                <div class="tab" data-tab="education">Formação</div>
-                <div class="tab" data-tab="skills">Habilidades</div>
-                <div class="tab" data-tab="language">Idiomas</div>
-                <div class="tab" data-tab="courses">Cursos</div>
-                <div class="tab" data-tab="projects">Projetos</div>
-            </div>
+        <header>
+            <h1>Gerador de Currículo Profissional</h1>
+            <p>Preencha suas informações abaixo para gerar um currículo otimizado para processos seletivos</p>
+        </header>
+        
+                <main class="main-content">
+            <section class="form-section">
+                <div class="tabs">
+                    <div class="tab active" data-tab="personal">Dados Pessoais</div>
+                    <div class="tab" data-tab="education">Formação</div>
+                    <div class="tab" data-tab="skills">Habilidades</div>
+                    <div class="tab" data-tab="languages">Idiomas</div>
+                    <div class="tab" data-tab="courses">Cursos</div>
+                    <div class="tab" data-tab="projects">Projetos</div>
+                </div>
+                
+                <form id="resume-form">
+                    <div class="tab-content active" id="personal-tab">
+                        <h2>Informações Pessoais</h2>
+                        
+                        <div class="form-group">
+                            <label for="name">Nome Completo</label>
+                            <input type="text" id="name" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="phone">Telefone/Celular</label>
+                            <input type="text" id="phone" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="email">E-mail</label>
+                            <input type="email" id="email" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="location">Localização</label>
+                            <input type="text" id="location" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="github">GitHub</label>
+                            <input type="url" id="github">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="linkedin">LinkedIn</label>
+                            <input type="url" id="linkedin">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="objective">Objetivo Profissional</label>
+                            <textarea id="objective" required></textarea>
+                        </div>
+                    </div>
+                    
+                    <div class="tab-content" id="education-tab">
+                        <h2>Formação Acadêmica</h2>
+                        <div id="education-container">
+                            <div class="multi-item">
+                                <div class="form-group">
+                                    <label>Curso</label>
+                                    <input type="text" class="education-course" required>
+                                </div>
+                                <div class="form-group">
+                                    <label>Instituição</label>
+                                    <input type="text" class="education-institution" required>
+                                </div>
+                                <div class="form-group">
+                                    <label>Período</label>
+                                    <input type="text" class="education-period" placeholder="Ex: 2023 - Presente" required>
+                                </div>
+                                <button type="button" class="remove-btn">Remover</button>
+                            </div>
+                        </div>
+                        <button type="button" class="add-btn" id="add-education">+ Adicionar Formação</button>
+                    </div>
+                    
+                    <div class="tab-content" id="skills-tab">
+                        <h2>Habilidades</h2>
+                        
+                        <div class="form-group">
+                            <label for="languages">Linguagens de Programação</label>
+                            <textarea id="languages" placeholder="Ex: Python, JavaScript, HTML/CSS"></textarea>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="tools">Ferramentas</label>
+                            <textarea id="tools" placeholder="Ex: Git, Github, Power BI, AWS"></textarea>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="knowledge">Conhecimentos</label>
+                            <textarea id="knowledge" placeholder="Ex: Versionamento de código, Lógica de Programação"></textarea>
+                        </div>
+                    </div>
+                    
+                    <div class="tab-content" id="languages-tab">
+                        <h2>Idiomas</h2>
+                        <div id="languages-container">
+                            <div class="multi-item">
+                                <div class="form-group">
+                                    <label>Idioma</label>
+                                    <select class="language-name" required>
+                                        <option value="">Selecione um idioma</option>
+                                        <optgroup label="Línguas Faladas">
+                                            <option value="pt">Português</option>
+                                            <option value="en">Inglês</option>
+                                            <option value="es">Espanhol</option>
+                                            <option value="fr">Francês</option>
+                                            <option value="de">Alemão</option>
+                                            <option value="zh">Chinês</option>
+                                            <option value="ja">Japonês</option>
+                                            <option value="ar">Árabe</option>
+                                            <option value="hi">Hindi</option>
+                                            <option value="ru">Russo</option>
+                                            <option value="bn">Bengali</option>
+                                            <option value="pa">Punjabi</option>
+                                            <option value="jv">Javanês</option>
+                                            <option value="ko">Coreano</option>
+                                            <option value="id">Indonésio</option>
+                                            <option value="te">Telugu</option>
+                                            <option value="tr">Turco</option>
+                                            <option value="vi">Vietnamita</option>
+                                            <option value="mr">Marathi</option>
+                                            <option value="ta">Tâmil</option>
+                                            <option value="it">Italiano</option>
+                                            <option value="nl">Holandês</option>
+                                            <option value="pl">Polonês</option>
+                                            <option value="uk">Ucraniano</option>
+                                        </optgroup>
+                                        <optgroup label="Línguas de Sinais">
+                                            <option value="ase">Língua de Sinais Americana (ASL)</option>
+                                            <option value="bfi">Língua de Sinais Britânica (BSL)</option>
+                                            <option value="fsl">Língua de Sinais Francesa (LSF)</option>
+                                            <option value="gsg">Língua de Sinais Alemã (DGS)</option>
+                                            <option value="jsl">Língua de Sinais Japonesa (JSL)</option>
+                                            <option value="csl">Língua de Sinais Chinesa (CSL)</option>
+                                            <option value="ssp">Língua de Sinais Espanhola (LSE)</option>
+                                            <option value="rsl">Língua de Sinais Russa (RSL)</option>
+                                            <option value="ins">Língua de Sinais Indiana (ISL)</option>
+                                            <option value="bfk">Língua de Sinais Ban Khor</option>
+                                            <option value="bog">Língua de Sinais de Bamako</option>
+                                            <option value="bqn">Língua de Sinais Búlgara</option>
+                                            <option value="dse">Língua de Sinais Holandesa</option>
+                                            <option value="sqk">Língua de Sinais Albanesa</option>
+                                            <option value="sgn">Línguas de Sinais</option>
+                                        </optgroup>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label>Nível de Proficiência</label>
+                                    <select class="language-level" required>
+                                        <option value="">Selecione o nível</option>
+                                        <option value="Básico">Básico</option>
+                                        <option value="Intermediário">Intermediário</option>
+                                        <option value="Avançado">Avançado</option>
+                                        <option value="Fluente">Fluente</option>
+                                        <option value="Nativo">Nativo</option>
+                                    </select>
+                                </div>
+                                <button type="button" class="remove-btn">Remover</button>
+                            </div>
+                        </div>
+                        <button type="button" class="add-btn" id="add-language">+ Adicionar Idioma</button>
+                    </div>
+                    
+                    <div class="tab-content" id="courses-tab">
+                        <h2>Cursos Livres</h2>
+                        <div id="courses-container">
+                            <div class="multi-item">
+                                <div class="form-group">
+                                    <label>Nome do Curso</label>
+                                    <input type="text" class="course-name" required>
+                                </div>
+                                <div class="form-group">
+                                    <label>Instituição</label>
+                                    <input type="text" class="course-institution" required>
+                                </div>
+                                <div class="form-group">
+                                    <label>Período/Carga Horária</label>
+                                    <input type="text" class="course-period" placeholder="Ex: 2025 - 12h" required>
+                                </div>
+                                <div class="form-group">
+                                    <label>Descrição (opcional)</label>
+                                    <textarea class="course-description"></textarea>
+                                </div>
+                                <button type="button" class="remove-btn">Remover</button>
+                            </div>
+                        </div>
+                        <button type="button" class="add-btn" id="add-course">+ Adicionar Curso</button>
+                    </div>
+                    
+                    <div class="tab-content" id="projects-tab">
+                        <h2>Projetos</h2>
+                        <div id="projects-container">
+                            <div class="multi-item">
+                                <div class="form-group">
+                                    <label>Nome do Projeto</label>
+                                    <input type="text" class="project-name" required>
+                                </div>
+                                <div class="form-group">
+                                    <label>Descrição</label>
+                                    <textarea class="project-description" required></textarea>
+                                </div>
+                                <div class="form-group">
+                                    <label>Link (opcional)</label>
+                                    <input type="url" class="project-link">
+                                </div>
+                                <button type="button" class="remove-btn">Remover</button>
+                            </div>
+                        </div>
+                        <button type="button" class="add-btn" id="add-project">+ Adicionar Projeto</button>
+                    </div>
+                    
+                    <button type="button" id="generate-preview">Visualizar Currículo</button>
+                </form>
+            </section>
             
-            <form id="resume-form">
-                <div class="tab-content active" id="personal-tab">
-                    <h2>Informações Pessoais</h2>
-                    
-                    <div class="form-group">
-                        <label for="name">Nome Completo</label>
-                        <input type="text" id="name" required>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="phone">Telefone/Celular</label>
-                        <input type="text" id="phone" required>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="email">E-mail</label>
-                        <input type="email" id="email" required>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="location">Localização</label>
-                        <input type="text" id="location" required>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="github">GitHub</label>
-                        <input type="url" id="github">
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="linkedin">LinkedIn</label>
-                        <input type="url" id="linkedin">
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="objective">Objetivo Profissional</label>
-                        <textarea id="objective" required></textarea>
-                    </div>
+            <section class="preview-section">
+                <h2>Pré-visualização do Currículo</h2>
+                <div class="instructions">
+                    <h3>Instruções:</h3>
+                    <p>Preencha todas as abas do formulário e clique em "Visualizar Currículo". O botão de download será habilitado automaticamente.</p>
                 </div>
-                
-                <div class="tab-content" id="education-tab">
-                    <h2>Formação Acadêmica</h2>
-                    <div id="education-container">
-                        <div class="multi-item">
-                            <div class="form-group">
-                                <label>Curso</label>
-                                <input type="text" class="education-course" required>
-                            </div>
-                            <div class="form-group">
-                                <label>Instituição</label>
-                                <input type="text" class="education-institution" required>
-                            </div>
-                            <div class="form-group">
-                                <label>Período</label>
-                                <input type="text" class="education-period" placeholder="Ex: 2023 - Presente" required>
-                            </div>
-                            <button type="button" class="remove-btn">Remover</button>
-                        </div>
-                    </div>
-                    <button type="button" class="add-btn" id="add-education">+ Adicionar Formação</button>
+                <div id="resume-preview" class="resume">
+                    <p>Preencha o formulário ao lado para gerar seu currículo.</p>
                 </div>
-                
-                <div class="tab-content" id="skills-tab">
-                    <h2>Habilidades</h2>
-                    
-                    <div class="form-group">
-                        <label for="languages">Linguagens de Programação</label>
-                        <textarea id="languages" placeholder="Ex: Python, JavaScript, HTML/CSS"></textarea>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="tools">Ferramentas</label>
-                        <textarea id="tools" placeholder="Ex: Git, Github, Power BI, AWS"></textarea>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="knowledge">Conhecimentos</label>
-                        <textarea id="knowledge" placeholder="Ex: Versionamento de código, Lógica de Programação"></textarea>
-                    </div>
+                <div class="button-group">
+                    <button id="download-pdf" class="download-btn hidden">Baixar Currículo em PDF</button>
+                    <button id="download-txt" class="download-btn hidden" style="background-color: #27ae60;">Baixar como Texto</button>
                 </div>
-
-                <div class="tab-content" id="language-tab">
-                    <h2>Idiomas</h2>
-                    <div id="language-container">
-                        <div class="multi-item">
-                            <div class="form-group">
-                                <label>Idioma</label>
-                                <select class="language-name" required>
-                                    <option value="" disabled selected>Selecione um idioma</option>
-                                    <option value="Alemão">Alemão</option>
-                                    <option value="Árabe">Árabe</option>
-                                    <option value="Chinês (Mandarim)">Chinês (Mandarim)</option>
-                                    <option value="Coreano">Coreano</option>
-                                    <option value="Espanhol">Espanhol</option>
-                                    <option value="Francês">Francês</option>
-                                    <option value="Hebraico">Hebraico</option>
-                                    <option value="Hindi">Hindi</option>
-                                    <option value="Holandês">Holandês</option>
-                                    <option value="Inglês">Inglês</option>
-                                    <option value="Italiano">Italiano</option>
-                                    <option value="Japonês">Japonês</option>
-                                    <option value="LIBRAS (Língua Brasileira de Sinais)">LIBRAS (Língua Brasileira de Sinais)</option>
-                                    <option value="ASL (Língua de Sinais Americana)">ASL (Língua de Sinais Americana)</option>
-                                    <option value="Português">Português</option>
-                                    <option value="Russo">Russo</option>
-                                    <option value="Sueco">Sueco</option>
-                                </select>
-                            </div>
-                            <div class="form-group">
-                                <label>Proficiência</label>
-                                <select class="language-proficiency" required>
-                                    <option value="Básico">Básico</option>
-                                    <option value="Intermediário">Intermediário</option>
-                                    <option value="Avançado">Avançado</option>
-                                    <option value="Fluente">Fluente</option>
-                                    <option value="Nativo">Nativo</option>
-                                </select>
-                            </div>
-                            <button type="button" class="remove-btn">Remover</button>
-                        </div>
-                    </div>
-                    <button type="button" class="add-btn" id="add-language">+ Adicionar Idioma</button>
-                </div>
-
-                <div class="tab-content" id="courses-tab">
-                    <h2>Cursos Livres</h2>
-                    <div id="courses-container">
-                        <div class="multi-item">
-                            <div class="form-group">
-                                <label>Nome do Curso</label>
-                                <input type="text" class="course-name" required>
-                            </div>
-                            <div class="form-group">
-                                <label>Instituição</label>
-                                <input type="text" class="course-institution" required>
-                            </div>
-                            <div class="form-group">
-                                <label>Período/Carga Horária</label>
-                                <input type="text" class="course-period" placeholder="Ex: 2025 - 12h" required>
-                            </div>
-                            <div class="form-group">
-                                <label>Descrição (opcional)</label>
-                                <textarea class="course-description"></textarea>
-                            </div>
-                            <button type="button" class="remove-btn">Remover</button>
-                        </div>
-                    </div>
-                    <button type="button" class="add-btn" id="add-course">+ Adicionar Curso</button>
-                </div>
-                
-                <div class="tab-content" id="projects-tab">
-                    <h2>Projetos</h2>
-                    <div id="projects-container">
-                        <div class="multi-item">
-                            <div class="form-group">
-                                <label>Nome do Projeto</label>
-                                <input type="text" class="project-name" required>
-                            </div>
-                            <div class="form-group">
-                                <label>Descrição</label>
-                                <textarea class="project-description" required></textarea>
-                            </div>
-                            <div class="form-group">
-                                <label>Link (opcional)</label>
-                                <input type="url" class="project-link">
-                            </div>
-                            <button type="button" class="remove-btn">Remover</button>
-                        </div>
-                    </div>
-                    <button type="button" class="add-btn" id="add-project">+ Adicionar Projeto</button>
-                </div>
-                
-                <button type="button" id="generate-preview">Visualizar Currículo</button>
-            </form>
-        </section>
+            </section>
+        </main>
         
         <section class="preview-section">
             <h2>Pré-visualização do Currículo</h2>
+            <div class="instructions">
+                <h3>Instruções:</h3>
+                <p>Preencha todas as abas do formulário e clique em "Visualizar Currículo". O botão de download será habilitado automaticamente.</p>
+            </div>
             <div id="resume-preview" class="resume">
                 <p>Preencha o formulário ao lado para gerar seu currículo.</p>
             </div>
-            <button id="download-pdf" class="download-btn hidden">Download PDF</button>
+            <div class="button-group">
+                <button id="download-pdf" class="download-btn hidden">Baixar Currículo em PDF</button>
+                <button id="download-txt" class="download-btn hidden" style="background-color: #27ae60;">Baixar como Texto</button>
+            </div>
         </section>
     </div>
 
-    <script src="script.js" defer></script>
-    <script src="download.js" defer></script>
+    <footer>
+        <p>Gerador de Currículo Profissional - Otimizado para análise por IA de recrutamento</p>
+    </footer>
 </body>
 </html>

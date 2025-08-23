@@ -1,237 +1,328 @@
-:root {
-    --primary-color: #2c3e50;
-    --secondary-color: #3498db;
-    --background-color: #f9f9f9;
-    --text-color: #333;
-    --light-gray: #e0e0e0;
-    --spacing: 1rem;
-}
 
-* {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-}
+        :root {
+            --primary-color: #2c3e50;
+            --secondary-color: #3498db;
+            --accent-color: #9b59b6;
+            --background-color: #f9f9f9;
+            --text-color: #333;
+            --light-gray: #e0e0e0;
+            --spacing: 1rem;
+        }
+        
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: var(--background-color);
+            color: var(--text-color);
+            line-height: 1.6;
+            padding: 20px;
+        }
+        
+        .container {
+            display: flex;
+            flex-direction: column;
+            max-width: 1200px;
+            margin: 0 auto;
+            gap: 20px;
+        }
+        
+        .main-content {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
 
-body {
-    background-color: var(--background-color);
-    color: var(--text-color);
-    line-height: 1.6;
-    padding: 20px;
-}
-
-.container {
-    display: flex;
-    flex-direction: column;
-    max-width: 1200px;
-    margin: 0 auto;
-    gap: 20px;
-}
-
-@media (min-width: 992px) {
-    .container {
-        flex-direction: row;
-    }
-}
-
-header {
-    max-width: 1200px;
-    margin: 0 auto 30px;
-    text-align: center;
-}
-
-h1 {
-    color: var(--primary-color);
-    margin-bottom: 10px;
-}
-
-.form-section, .preview-section {
-    background: white;
-    border-radius: 8px;
-    padding: 25px;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-}
-
-.form-section {
-    flex: 1;
-}
-
-.preview-section {
-    flex: 1;
-}
-
-h2 {
-    color: var(--primary-color);
-    margin-bottom: 20px;
-    padding-bottom: 10px;
-    border-bottom: 2px solid var(--secondary-color);
-}
-
-.form-group {
-    margin-bottom: 15px;
-}
-
-label {
-    display: block;
-    margin-bottom: 5px;
-    font-weight: 600;
-}
-
-input, textarea, select {
-    width: 100%;
-    padding: 10px;
-    border: 1px solid var(--light-gray);
-    border-radius: 4px;
-    font-size: 16px;
-}
-
-textarea {
-    min-height: 100px;
-    resize: vertical;
-}
-
-button {
-    background-color: var(--secondary-color);
-    color: white;
-    border: none;
-    padding: 12px 20px;
-    border-radius: 4px;
-    cursor: pointer;
-    font-size: 16px;
-    font-weight: 600;
-    margin-top: 10px;
-    transition: background-color 0.3s;
-}
-
-button:hover {
-    background-color: #2980b9;
-}
-
-.add-btn {
-    background-color: #27ae60;
-    margin-right: 10px;
-}
-
-.add-btn:hover {
-    background-color: #219653;
-}
-
-.remove-btn {
-    background-color: #e74c3c;
-    padding: 8px 12px;
-}
-
-.remove-btn:hover {
-    background-color: #c0392b;
-}
-
-.download-btn {
-    background-color: #9b59b6;
-    display: block;
-    width: 100%;
-    margin-top: 20px;
-}
-
-.download-btn:hover {
-    background-color: #8e44ad;
-}
-
-.multi-item {
-    border: 1px solid var(--light-gray);
-    border-radius: 4px;
-    padding: 15px;
-    margin-bottom: 15px;
-    position: relative;
-}
-
-/* Estilo do currículo */
-.resume {
-    padding: 30px;
-    background: white;
-    color: #333;
-    font-family: Arial, sans-serif;
-    line-height: 1.5;
-}
-
-.resume-header h1 {
-    font-size: 24px;
-    margin-bottom: 10px;
-    color: var(--primary-color);
-}
-
-.resume-contact {
-    margin-bottom: 20px;
-    font-size: 14px;
-}
-
-.resume-section {
-    margin-bottom: 20px;
-}
-
-.resume-section h2 {
-    font-size: 18px;
-    border-bottom: 1px solid var(--secondary-color);
-    padding-bottom: 5px;
-    margin-bottom: 10px;
-    color: var(--primary-color);
-}
-
-.resume-item {
-    margin-bottom: 15px;
-}
-
-.resume-item h3 {
-    font-size: 16px;
-    margin-bottom: 5px;
-}
-
-.resume-item .date {
-    font-style: italic;
-    color: #666;
-    margin-bottom: 5px;
-}
-
-.resume-skills {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 10px;
-}
-
-.skill-tag {
-    background-color: var(--light-gray);
-    padding: 5px 10px;
-    border-radius: 15px;
-    font-size: 14px;
-}
-
-.hidden {
-    display: none;
-}
-
-.tabs {
-    display: flex;
-    margin-bottom: 20px;
-    border-bottom: 1px solid var(--light-gray);
-}
-
-.tab {
-    padding: 10px 20px;
-    cursor: pointer;
-    background: #f1f1f1;
-    margin-right: 5px;
-    border-radius: 5px 5px 0 0;
-}
-
-.tab.active {
-    background: var(--secondary-color);
-    color: white;
-}
-
-.tab-content {
-    display: none;
-}
-
-.tab-content.active {
-    display: block;
-}
+        @media (min-width: 992px) {
+            .main-content {
+                flex-direction: row;
+            }
+        }
+        
+        header {
+            text-align: center;
+            margin-bottom: 30px;
+            padding: 20px;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            border-radius: 8px;
+        }
+        
+        h1 {
+            margin-bottom: 10px;
+            font-size: 2.2rem;
+        }
+        
+        .form-section, .preview-section {
+            background: white;
+            border-radius: 8px;
+            padding: 25px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .form-section {
+            flex: 1;
+        }
+        
+        .preview-section {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        h2 {
+            color: var(--primary-color);
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid var(--secondary-color);
+        }
+        
+        .form-group {
+            margin-bottom: 15px;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: 600;
+            color: var(--primary-color);
+        }
+        
+        input, textarea, select {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid var(--light-gray);
+            border-radius: 4px;
+            font-size: 16px;
+            transition: border-color 0.3s;
+        }
+        
+        input:focus, textarea:focus, select:focus {
+            border-color: var(--secondary-color);
+            outline: none;
+            box-shadow: 0 0 0 2px rgba(52, 152, 219, 0.2);
+        }
+        
+        textarea {
+            min-height: 100px;
+            resize: vertical;
+        }
+        
+        button {
+            background-color: var(--secondary-color);
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: 600;
+            margin-top: 10px;
+            transition: all 0.3s;
+        }
+        
+        button:hover {
+            background-color: #2980b9;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        
+        .add-btn {
+            background-color: #27ae60;
+            margin-right: 10px;
+        }
+        
+        .add-btn:hover {
+            background-color: #219653;
+        }
+        
+        .remove-btn {
+            background-color: #e74c3c;
+            padding: 8px 12px;
+        }
+        
+        .remove-btn:hover {
+            background-color: #c0392b;
+        }
+        
+        .download-btn {
+            background-color: var(--accent-color);
+            display: block;
+            width: 100%;
+            margin-top: 20px;
+            padding: 15px;
+            font-size: 18px;
+        }
+        
+        .download-btn:hover {
+            background-color: #8e44ad;
+        }
+        
+        .multi-item {
+            border: 1px solid var(--light-gray);
+            border-radius: 4px;
+            padding: 15px;
+            margin-bottom: 15px;
+            position: relative;
+            background-color: #f8f9fa;
+        }
+        
+        /* Estilo do currículo */
+        .resume {
+            padding: 30px;
+            background: white;
+            color: #333;
+            font-family: Arial, sans-serif;
+            line-height: 1.5;
+            flex-grow: 1;
+            overflow-y: auto;
+            border: 1px solid var(--light-gray);
+        }
+        
+        .resume-header h1 {
+            font-size: 24px;
+            margin-bottom: 10px;
+            color: var(--primary-color);
+        }
+        
+        .resume-contact {
+            margin-bottom: 20px;
+            font-size: 14px;
+            color: #666;
+        }
+        
+        .resume-section {
+            margin-bottom: 20px;
+        }
+        
+        .resume-section h2 {
+            font-size: 18px;
+            border-bottom: 1px solid var(--secondary-color);
+            padding-bottom: 5px;
+            margin-bottom: 10px;
+            color: var(--primary-color);
+        }
+        
+        .resume-item {
+            margin-bottom: 15px;
+        }
+        
+        .resume-item h3 {
+            font-size: 16px;
+            margin-bottom: 5px;
+            color: var(--primary-color);
+        }
+        
+        .resume-item .date {
+            font-style: italic;
+            color: #666;
+            margin-bottom: 5px;
+        }
+        
+        .resume-skills {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        
+        .skill-tag {
+            background-color: var(--light-gray);
+            padding: 5px 10px;
+            border-radius: 15px;
+            font-size: 14px;
+        }
+        
+        .hidden {
+            display: none;
+        }
+        
+        .tabs {
+            display: flex;
+            margin-bottom: 20px;
+            border-bottom: 1px solid var(--light-gray);
+        }
+        
+        .tab {
+            padding: 10px 20px;
+            cursor: pointer;
+            background: #f1f1f1;
+            margin-right: 5px;
+            border-radius: 5px 5px 0 0;
+            transition: background-color 0.3s;
+        }
+        
+        .tab.active {
+            background: var(--secondary-color);
+            color: white;
+        }
+        
+        .tab-content {
+            display: none;
+        }
+        
+        .tab-content.active {
+            display: block;
+        }
+        
+        .language-item {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
+        
+        .language-item select {
+            flex: 1;
+        }
+        
+        .language-item input {
+            flex: 2;
+        }
+        
+        .progress-bar {
+            height: 8px;
+            background-color: #e0e0e0;
+            border-radius: 4px;
+            margin-top: 5px;
+            overflow: hidden;
+        }
+        
+        .progress-fill {
+            height: 100%;
+            background-color: var(--secondary-color);
+            border-radius: 4px;
+        }
+        
+        .instructions {
+            background-color: #e3f2fd;
+            padding: 15px;
+            border-radius: 4px;
+            margin-bottom: 20px;
+            font-size: 14px;
+        }
+        
+        .instructions h3 {
+            margin-bottom: 10px;
+            color: var(--primary-color);
+        }
+        
+        footer {
+            text-align: center;
+            margin-top: 30px;
+            padding: 20px;
+            color: #666;
+            font-size: 14px;
+        }
+        
+        .button-group {
+            display: flex;
+            gap: 10px;
+            margin-top: 20px;
+        }
+        
+        .button-group button {
+            flex: 1;
+        }
