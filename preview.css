@@ -1,0 +1,98 @@
+
+.preview-section {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.resume {
+    padding: 30px;
+    background: white;
+    color: #333;
+    font-family: Arial, sans-serif;
+    line-height: 1.5;
+    flex-grow: 1;
+    overflow-y: auto;
+    border: 1px solid var(--light-gray);
+}
+
+.resume-header h1 {
+    font-size: 24px;
+    margin-bottom: 10px;
+    color: var(--primary-color);
+}
+
+.resume-contact {
+    margin-bottom: 20px;
+    font-size: 14px;
+    color: #666;
+}
+
+.resume-section {
+    margin-bottom: 20px;
+}
+
+.resume-section h2 {
+    font-size: 18px;
+    border-bottom: 1px solid var(--secondary-color);
+    padding-bottom: 5px;
+    margin-bottom: 10px;
+    color: var(--primary-color);
+}
+
+.resume-item {
+    margin-bottom: 15px;
+}
+
+.resume-item h3 {
+    font-size: 16px;
+    margin-bottom: 5px;
+    color: var(--primary-color);
+}
+
+.resume-item .date {
+    font-style: italic;
+    color: #666;
+    margin-bottom: 5px;
+}
+
+.resume-skills {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.skill-tag {
+    background-color: var(--light-gray);
+    padding: 5px 10px;
+    border-radius: 15px;
+    font-size: 14px;
+}
+
+.instructions {
+    background-color: #e3f2fd;
+    padding: 15px;
+    border-radius: 4px;
+    margin-bottom: 20px;
+    font-size: 14px;
+}
+
+.instructions h3 {
+    margin-bottom: 10px;
+    color: var(--primary-color);
+}
+
+.button-group {
+    display: flex;
+    gap: 10px;
+    margin-top: 20px;
+}
+
+.download-btn {
+    background-color: var(--accent-color);
+    display: block;
+    width: 100%;
+    margin-top: 20px;
+    padding: 15px;
+    font-size: 18px;
+}

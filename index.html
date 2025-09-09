@@ -5,7 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Gerador de Currículo Profissional</title>
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="preview.css">
     <script src="script.js"></script>
+    <script src="preview.js"></script>
+    <script src="pdfGenerator.js"></script>
+    <script src="txtGenerator.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.28/jspdf.plugin.autotable.min.js"></script>
 </head>
@@ -16,11 +20,12 @@
             <p>Preencha suas informações abaixo para gerar um currículo otimizado para processos seletivos</p>
         </header>
         
-                <main class="main-content">
+        <main class="main-content">
             <section class="form-section">
                 <div class="tabs">
                     <div class="tab active" data-tab="personal">Dados Pessoais</div>
                     <div class="tab" data-tab="education">Formação</div>
+                    <div class="tab" data-tab="experiencia">Experiência Profissional</div>
                     <div class="tab" data-tab="skills">Habilidades</div>
                     <div class="tab" data-tab="languages">Idiomas</div>
                     <div class="tab" data-tab="courses">Cursos</div>
@@ -87,6 +92,41 @@
                             </div>
                         </div>
                         <button type="button" class="add-btn" id="add-education">+ Adicionar Formação</button>
+                    </div>
+
+                    <div class="tab-content" id="experiencia-tab">
+                        <h2>Experiência Profissional</h2>
+                        <div id="experiencia-container">
+                            <div class="multi-item">
+                                <div class="form-group">
+                                    <label>Tipo de Vínculo</label>
+                                    <select class="experiencia-tipo" required>
+                                        <option value="">Selecione o tipo</option>
+                                        <option value="Empresa">Empresa</option>
+                                        <option value="Freelance">Freelance</option>
+                                        <option value="ONG">ONG</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label>Função</label>
+                                    <input type="text" class="experiencia-funcao" required>
+                                </div>
+                                <div class="form-group">
+                                    <label>Empresa/Projeto</label>
+                                    <input type="text" class="experiencia-empresa" required>
+                                </div>
+                                <div class="form-group">
+                                    <label>Período</label>
+                                    <input type="text" class="experiencia-periodo" placeholder="Ex: 2022 - 2023" required>
+                                </div>
+                                <div class="form-group">
+                                    <label>Descrição das Atividades</label>
+                                    <textarea class="experiencia-descricao" required></textarea>
+                                </div>
+                                <button type="button" class="remove-btn">Remover</button>
+                            </div>
+                        </div>
+                        <button type="button" class="add-btn" id="add-experiencia">+ Adicionar Experiência</button>
                     </div>
                     
                     <div class="tab-content" id="skills-tab">
@@ -246,20 +286,6 @@
             </section>
         </main>
         
-        <section class="preview-section">
-            <h2>Pré-visualização do Currículo</h2>
-            <div class="instructions">
-                <h3>Instruções:</h3>
-                <p>Preencha todas as abas do formulário e clique em "Visualizar Currículo". O botão de download será habilitado automaticamente.</p>
-            </div>
-            <div id="resume-preview" class="resume">
-                <p>Preencha o formulário ao lado para gerar seu currículo.</p>
-            </div>
-            <div class="button-group">
-                <button id="download-pdf" class="download-btn hidden">Baixar Currículo em PDF</button>
-                <button id="download-txt" class="download-btn hidden" style="background-color: #27ae60;">Baixar como Texto</button>
-            </div>
-        </section>
     </div>
 
     <footer>
