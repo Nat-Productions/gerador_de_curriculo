@@ -1,16 +1,16 @@
 function downloadPDF() {
     const { jsPDF } = window.jspdf;
     const doc = new jsPDF('p', 'mm', 'a4');
-    
+
     // Coletar dados do formulário
-    const name = document.getElementById('name').value || 'Seu Nome';
-    const phone = document.getElementById('phone').value || '(00) 0 0000-0000';
-    const email = document.getElementById('email').value || 'seu.email@exemplo.com';
-    const location = document.getElementById('location').value || 'Sua Cidade - Estado';
+    const name = document.getElementById('name').value || '';
+    const phone = document.getElementById('phone').value || '';
+    const email = document.getElementById('email').value || '';
+    const location = document.getElementById('location').value || '';
     const github = document.getElementById('github').value;
     const linkedin = document.getElementById('linkedin').value;
-    const objective = document.getElementById('objective').value || 'Seu objetivo profissional';
-    
+    const objective = document.getElementById('objective').value || '';
+
     // Coletar formações
     const educationItems = [];
     document.querySelectorAll('#education-container .multi-item').forEach(item => {
@@ -32,12 +32,12 @@ function downloadPDF() {
             descricao: item.querySelector('.experiencia-descricao').value
         });
     });
-    
+
     // Coletar habilidades
     const languages = document.getElementById('languages').value;
     const tools = document.getElementById('tools').value;
     const knowledge = document.getElementById('knowledge').value;
-    
+
     // Coletar idiomas
     const languageItems = [];
     document.querySelectorAll('#languages-container .multi-item').forEach(item => {
@@ -46,7 +46,7 @@ function downloadPDF() {
             level: item.querySelector('.language-level').value
         });
     });
-    
+
     // Coletar cursos
     const courseItems = [];
     document.querySelectorAll('#courses-container .multi-item').forEach(item => {
@@ -57,7 +57,7 @@ function downloadPDF() {
             description: item.querySelector('.course-description').value
         });
     });
-    
+
     // Coletar projetos
     const projectItems = [];
     document.querySelectorAll('#projects-container .multi-item').forEach(item => {
@@ -67,18 +67,28 @@ function downloadPDF() {
             link: item.querySelector('.project-link').value
         });
     });
-    
+
     // Configurações do PDF
     const margin = 10;
     const lineHeight = 7;
     let y = margin;
-    
+
+    function checkPageBreak(y) {
+        if (y > 280) {
+            doc.addPage();
+            return margin;
+        }
+        return y;
+    }
+
     // Adicionar cabeçalho
-    doc.setFontSize(20);
-    doc.setFont(undefined, 'bold');
-    doc.text(name, margin, y);
-    y += lineHeight;
-    
+    if (name) {
+        doc.setFontSize(20);
+        doc.setFont(undefined, 'bold');
+        doc.text(name, margin, y);
+        y += lineHeight;
+    }
+
     doc.setFontSize(12);
     doc.setFont(undefined, 'normal');
 
@@ -103,230 +113,221 @@ function downloadPDF() {
         y += lineHeight;
     }
 
-    y += lineHeight; // Extra space after contact info
-    
+    if (phone || email || location || github || linkedin) {
+        y += lineHeight; // Extra space after contact info
+    }
+
+
     // Adicionar objetivo
-    doc.setFontSize(16);
-    doc.setFont(undefined, 'bold');
-    doc.text("OBJETIVO", margin, y);
-    y += lineHeight;
-    
-    doc.setFontSize(12);
-    doc.setFont(undefined, 'normal');
-    const objectiveLines = doc.splitTextToSize(objective, 180);
-    doc.text(objectiveLines, margin, y);
-    y += (objectiveLines.length * lineHeight) + lineHeight;
-    
+    if (objective) {
+        y = checkPageBreak(y);
+        doc.setFontSize(16);
+        doc.setFont(undefined, 'bold');
+        doc.text("OBJETIVO", margin, y);
+        y += lineHeight;
+
+        doc.setFontSize(12);
+        doc.setFont(undefined, 'normal');
+        const objectiveLines = doc.splitTextToSize(objective, 180);
+        doc.text(objectiveLines, margin, y);
+        y += (objectiveLines.length * lineHeight) + lineHeight;
+    }
+
+
     // Adicionar formação acadêmica
-    if (educationItems.length > 0) {
+    const validEducationItems = educationItems.filter(edu => edu.course || edu.institution || edu.period);
+    if (validEducationItems.length > 0) {
+        y = checkPageBreak(y);
         doc.setFontSize(16);
         doc.setFont(undefined, 'bold');
         doc.text("FORMAÇÃO ACADÊMICA", margin, y);
         y += lineHeight;
-        
+
         doc.setFontSize(12);
-        doc.setFont(undefined, 'normal');
-        
-        educationItems.forEach(edu => {
-            if (y > 270) {
-                doc.addPage();
-                y = margin;
+
+        validEducationItems.forEach(edu => {
+            y = checkPageBreak(y);
+            if (edu.course) {
+                doc.setFont(undefined, 'bold');
+                doc.text(edu.course, margin, y);
+                y += lineHeight;
             }
-            
-            doc.setFont(undefined, 'bold');
-            doc.text(edu.course, margin, y);
+
+            if (edu.institution || edu.period) {
+                doc.setFont(undefined, 'normal');
+                doc.text(`${[edu.institution, edu.period].filter(Boolean).join(' - ')}`, margin, y);
+                y += lineHeight;
+            }
             y += lineHeight;
-            
-            doc.setFont(undefined, 'normal');
-            doc.text(`${edu.institution} - ${edu.period}`, margin, y);
-            y += lineHeight * 2;
         });
     }
 
     // Adicionar experiência profissional
-    if (experienceItems.length > 0) {
-        if (y > 250) {
-            doc.addPage();
-            y = margin;
-        }
-
+    const validExperienceItems = experienceItems.filter(exp => exp.funcao || exp.tipo || exp.empresa || exp.periodo || exp.descricao);
+    if (validExperienceItems.length > 0) {
+        y = checkPageBreak(y);
         doc.setFontSize(16);
         doc.setFont(undefined, 'bold');
         doc.text("EXPERIÊNCIA PROFISSIONAL", margin, y);
         y += lineHeight;
-        
-        doc.setFontSize(12);
-        
-        experienceItems.forEach(exp => {
-            if (y > 270) {
-                doc.addPage();
-                y = margin;
-            }
-            
-            doc.setFont(undefined, 'bold');
-            doc.text(`${exp.funcao} - ${exp.tipo}`, margin, y);
-            y += lineHeight;
-            
-            doc.setFont(undefined, 'normal');
-            doc.text(`${exp.empresa} - ${exp.periodo}`, margin, y);
-            y += lineHeight;
 
-            const descLines = doc.splitTextToSize(exp.descricao, 180);
-            doc.text(descLines, margin, y);
-            y += (descLines.length * lineHeight) + lineHeight;
+        doc.setFontSize(12);
+
+        validExperienceItems.forEach(exp => {
+            y = checkPageBreak(y);
+            if (exp.funcao || exp.tipo) {
+                doc.setFont(undefined, 'bold');
+                doc.text(`${[exp.funcao, exp.tipo].filter(Boolean).join(' - ')}`, margin, y);
+                y += lineHeight;
+            }
+
+            if (exp.empresa || exp.periodo) {
+                doc.setFont(undefined, 'normal');
+                doc.text(`${[exp.empresa, exp.periodo].filter(Boolean).join(' - ')}`, margin, y);
+                y += lineHeight;
+            }
+
+            if (exp.descricao) {
+                const descLines = doc.splitTextToSize(exp.descricao, 180);
+                doc.text(descLines, margin, y);
+                y += (descLines.length * lineHeight);
+            }
+            y += lineHeight;
         });
     }
-    
+
     // Adicionar habilidades
     if (languages || tools || knowledge) {
-        if (y > 250) {
-            doc.addPage();
-            y = margin;
-        }
-        
+        y = checkPageBreak(y);
         doc.setFontSize(16);
         doc.setFont(undefined, 'bold');
         doc.text("HABILIDADES", margin, y);
         y += lineHeight;
-        
+
         doc.setFontSize(12);
-        doc.setFont(undefined, 'normal');
-        
+
         if (languages) {
             doc.setFont(undefined, 'bold');
             doc.text("Linguagens:", margin, y);
             y += lineHeight;
-            
+
             doc.setFont(undefined, 'normal');
             const langLines = doc.splitTextToSize(languages, 180);
             doc.text(langLines, margin, y);
             y += (langLines.length * lineHeight) + lineHeight;
         }
-        
+
         if (tools) {
             doc.setFont(undefined, 'bold');
             doc.text("Ferramentas:", margin, y);
             y += lineHeight;
-            
+
             doc.setFont(undefined, 'normal');
             const toolsLines = doc.splitTextToSize(tools, 180);
             doc.text(toolsLines, margin, y);
             y += (toolsLines.length * lineHeight) + lineHeight;
         }
-        
+
         if (knowledge) {
             doc.setFont(undefined, 'bold');
             doc.text("Conhecimentos:", margin, y);
             y += lineHeight;
-            
+
             doc.setFont(undefined, 'normal');
             const knowledgeLines = doc.splitTextToSize(knowledge, 180);
             doc.text(knowledgeLines, margin, y);
             y += (knowledgeLines.length * lineHeight) + lineHeight;
         }
     }
-    
+
     // Adicionar idiomas
-    if (languageItems.length > 0) {
-        if (y > 250) {
-            doc.addPage();
-            y = margin;
-        }
-        
+    const validLanguageItems = languageItems.filter(lang => lang.name || lang.level);
+    if (validLanguageItems.length > 0) {
+        y = checkPageBreak(y);
         doc.setFontSize(16);
         doc.setFont(undefined, 'bold');
         doc.text("IDIOMAS", margin, y);
         y += lineHeight;
-        
+
         doc.setFontSize(12);
-        
-        languageItems.forEach(lang => {
-            if (y > 270) {
-                doc.addPage();
-                y = margin;
-            }
-            
-            doc.text(`${lang.name}: ${lang.level}`, margin, y);
+
+        validLanguageItems.forEach(lang => {
+            y = checkPageBreak(y);
+            doc.text(`${[lang.name, lang.level].filter(Boolean).join(': ')}`, margin, y);
             y += lineHeight * 2;
         });
     }
-    
+
     // Adicionar cursos
-    if (courseItems.length > 0) {
-        if (y > 250) {
-            doc.addPage();
-            y = margin;
-        }
-        
+    const validCourseItems = courseItems.filter(course => course.name || course.institution || course.period || course.description);
+    if (validCourseItems.length > 0) {
+        y = checkPageBreak(y);
         doc.setFontSize(16);
         doc.setFont(undefined, 'bold');
         doc.text("CURSOS LIVRES", margin, y);
         y += lineHeight;
-        
+
         doc.setFontSize(12);
-        
-        courseItems.forEach(course => {
-            if (y > 270) {
-                doc.addPage();
-                y = margin;
+
+        validCourseItems.forEach(course => {
+            y = checkPageBreak(y);
+            if (course.name) {
+                doc.setFont(undefined, 'bold');
+                doc.text(course.name, margin, y);
+                y += lineHeight;
             }
-            
-            doc.setFont(undefined, 'bold');
-            doc.text(course.name, margin, y);
-            y += lineHeight;
-            
-            doc.setFont(undefined, 'normal');
-            doc.text(`${course.institution} - ${course.period}`, margin, y);
-            y += lineHeight;
-            
+
+            if (course.institution || course.period) {
+                doc.setFont(undefined, 'normal');
+                doc.text(`${[course.institution, course.period].filter(Boolean).join(' - ')}`, margin, y);
+                y += lineHeight;
+            }
+
             if (course.description) {
                 const descLines = doc.splitTextToSize(course.description, 180);
                 doc.text(descLines, margin, y);
                 y += (descLines.length * lineHeight);
             }
-            
+
             y += lineHeight;
         });
     }
-    
+
     // Adicionar projetos
-    if (projectItems.length > 0) {
-        if (y > 250) {
-            doc.addPage();
-            y = margin;
-        }
-        
+    const validProjectItems = projectItems.filter(project => project.name || project.description || project.link);
+    if (validProjectItems.length > 0) {
+        y = checkPageBreak(y);
         doc.setFontSize(16);
         doc.setFont(undefined, 'bold');
         doc.text("PROJETOS", margin, y);
         y += lineHeight;
-        
+
         doc.setFontSize(12);
-        
-        projectItems.forEach(project => {
-            if (y > 270) {
-                doc.addPage();
-                y = margin;
-            }
-            
-            doc.setFont(undefined, 'bold');
-            doc.text(project.name, margin, y);
-            y += lineHeight;
-            
-            doc.setFont(undefined, 'normal');
-            const descLines = doc.splitTextToSize(project.description, 180);
-            doc.text(descLines, margin, y);
-            y += (descLines.length * lineHeight);
-            
-            if (project.link) {
-                doc.text(`Link: ${project.link}`, margin, y);
+
+        validProjectItems.forEach(project => {
+            y = checkPageBreak(y);
+            if (project.name) {
+                doc.setFont(undefined, 'bold');
+                doc.text(project.name, margin, y);
                 y += lineHeight;
             }
-            
+
+            if (project.description) {
+                doc.setFont(undefined, 'normal');
+                const descLines = doc.splitTextToSize(project.description, 180);
+                doc.text(descLines, margin, y);
+                y += (descLines.length * lineHeight);
+            }
+
+            if (project.link) {
+                doc.text(`Link: ${project.link}`, margin, y, { link: project.link });
+                y += lineHeight;
+            }
+
             y += lineHeight;
         });
     }
-    
+
     // Salvar o PDF
     doc.save('curriculo.pdf');
 }
