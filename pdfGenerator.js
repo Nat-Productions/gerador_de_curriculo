@@ -83,13 +83,13 @@ function downloadPDF() {
 
     // Adicionar cabeçalho
     if (name) {
-        doc.setFontSize(20);
+        doc.setFontSize(14);
         doc.setFont(undefined, 'bold');
         doc.text(name, margin, y);
         y += lineHeight;
     }
 
-    doc.setFontSize(12);
+    doc.setFontSize(8);
     doc.setFont(undefined, 'normal');
 
     if (phone) {
@@ -121,12 +121,12 @@ function downloadPDF() {
     // Adicionar objetivo
     if (objective) {
         y = checkPageBreak(y);
-        doc.setFontSize(16);
+        doc.setFontSize(14);
         doc.setFont(undefined, 'bold');
         doc.text("OBJETIVO", margin, y);
         y += lineHeight;
 
-        doc.setFontSize(12);
+        doc.setFontSize(8);
         doc.setFont(undefined, 'normal');
         const objectiveLines = doc.splitTextToSize(objective, 180);
         doc.text(objectiveLines, margin, y);
@@ -138,12 +138,12 @@ function downloadPDF() {
     const validEducationItems = educationItems.filter(edu => edu.course || edu.institution || edu.period);
     if (validEducationItems.length > 0) {
         y = checkPageBreak(y);
-        doc.setFontSize(16);
+        doc.setFontSize(14);
         doc.setFont(undefined, 'bold');
         doc.text("FORMAÇÃO ACADÊMICA", margin, y);
         y += lineHeight;
 
-        doc.setFontSize(12);
+        doc.setFontSize(8);
 
         validEducationItems.forEach(edu => {
             y = checkPageBreak(y);
@@ -166,12 +166,12 @@ function downloadPDF() {
     const validExperienceItems = experienceItems.filter(exp => exp.funcao || exp.tipo || exp.empresa || exp.periodo || exp.descricao);
     if (validExperienceItems.length > 0) {
         y = checkPageBreak(y);
-        doc.setFontSize(16);
+        doc.setFontSize(14);
         doc.setFont(undefined, 'bold');
         doc.text("EXPERIÊNCIA PROFISSIONAL", margin, y);
         y += lineHeight;
 
-        doc.setFontSize(12);
+        doc.setFontSize(8);
 
         validExperienceItems.forEach(exp => {
             y = checkPageBreak(y);
@@ -199,12 +199,12 @@ function downloadPDF() {
     // Adicionar habilidades
     if (languages || tools || knowledge) {
         y = checkPageBreak(y);
-        doc.setFontSize(16);
+        doc.setFontSize(14);
         doc.setFont(undefined, 'bold');
         doc.text("HABILIDADES", margin, y);
         y += lineHeight;
 
-        doc.setFontSize(12);
+        doc.setFontSize(8);
 
         if (languages) {
             doc.setFont(undefined, 'bold');
@@ -244,12 +244,12 @@ function downloadPDF() {
     const validLanguageItems = languageItems.filter(lang => lang.name || lang.level);
     if (validLanguageItems.length > 0) {
         y = checkPageBreak(y);
-        doc.setFontSize(16);
+        doc.setFontSize(14);
         doc.setFont(undefined, 'bold');
         doc.text("IDIOMAS", margin, y);
         y += lineHeight;
 
-        doc.setFontSize(12);
+        doc.setFontSize(8);
 
         validLanguageItems.forEach(lang => {
             y = checkPageBreak(y);
@@ -262,12 +262,12 @@ function downloadPDF() {
     const validCourseItems = courseItems.filter(course => course.name || course.institution || course.period || course.description);
     if (validCourseItems.length > 0) {
         y = checkPageBreak(y);
-        doc.setFontSize(16);
+        doc.setFontSize(14);
         doc.setFont(undefined, 'bold');
         doc.text("CURSOS LIVRES", margin, y);
         y += lineHeight;
 
-        doc.setFontSize(12);
+        doc.setFontSize(8);
 
         validCourseItems.forEach(course => {
             y = checkPageBreak(y);
@@ -297,12 +297,12 @@ function downloadPDF() {
     const validProjectItems = projectItems.filter(project => project.name || project.description || project.link);
     if (validProjectItems.length > 0) {
         y = checkPageBreak(y);
-        doc.setFontSize(16);
+        doc.setFontSize(14);
         doc.setFont(undefined, 'bold');
         doc.text("PROJETOS", margin, y);
         y += lineHeight;
 
-        doc.setFontSize(12);
+        doc.setFontSize(8);
 
         validProjectItems.forEach(project => {
             y = checkPageBreak(y);

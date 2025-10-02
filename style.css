@@ -39,6 +39,7 @@
         @media (min-width: 992px) {
             .main-content {
                 flex-direction: row;
+                flex-wrap: wrap;
             }
         }
         
@@ -64,15 +65,15 @@
         }
         
         .upload-section {
-            flex: 2;
+            flex: 1 1 48%;
         }
 
         .form-section {
-            flex: 1;
+            flex: 1 1 48%;
         }
 
         .preview-section {
-            flex: 2;
+            flex: 1 1 100%;
         }
         
         h2 {
@@ -167,7 +168,7 @@
             display: flex;
             margin-bottom: 20px;
             border-bottom: 1px solid var(--light-gray);
-            overflow-x: auto;
+            overflow-x: scroll;
             white-space: nowrap;
             padding-bottom: 5px;
             scrollbar-width: thin;
